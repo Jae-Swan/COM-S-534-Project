@@ -17,12 +17,8 @@ N = 2 * L  # number of fermionic systems
 qs = QSystem()
 fermions = [Fermion(qs) for _ in range(N)]
 
-sops = []  # spin operators
-for k in range(L):
-    u, d = 2 * k, 2 * k + 1
-    sops[k] = [0.5 * (fermions[u].c * fermions[d].a + fermions[d].c * fermions[u].a),
-               0.5j * (fermions[d].c * fermions[u].a - fermions[u].c * fermions[d].a),
-               0.5 * (fermions[u].c * fermions[u].a - fermions[d].c * fermions[d].a)]
+sops = [0 for _ in range(L)]  # spin operators
+#TODO define sops
 
 t = 0.1  # hopping amplitude
 U = 0.3  # strength of on-site interaction
@@ -30,13 +26,11 @@ J = (t * t) / U  # exchange interaction
 ht = 0  # t term
 hJ = 0  # J term
 
-# TODO I think the t term calculation may be wrong
 for i in range(L - 1):
-    for s in range(2):
-        f1, f2 = 2 * i + s, 2 * (i + 1) + s
-        ht += -t * (fermions[f1].c * fermions[f2].a + fermions[f2].c * fermions[f1].a)
+    iu, id, ju, jd = fermions[2 * i], fermions[2 * i + 1], fermions[2 * (i + 1)], fermions[2 * (i + 1) + 1]
+    ht += -t * (iu.c * ju.a + id.c * jd.a + ju.c * iu.a + jd.c * id.a)
 
-for i in range (L):
+for i in range(L - 1):
     hJ += J * (sops[i] * sops[i + 1])
 
 h = ht + hJ
