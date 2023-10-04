@@ -1,5 +1,11 @@
 from simuq.environment import Fermion
 from simuq.qsystem import QSystem
+from simuq.qutip import QuTiPProvider
+qpp = QuTiPProvider()
+
+from simuq.ionq import IonQProvider
+iqp = IonQProvider("VEgePYu3LJtjGQBI4MFQrxmyfeGLRVBZ")
+
 
 # Fermi-Hubbard model on a 1D chain with open-boundary condition,
 # based on arXiv:2010.07965 (but omitted the "spin-dependent local
@@ -31,3 +37,14 @@ for i in range(L):
 h = hh + ho
 t = 0.1
 qs.add_evolution(h, t)
+qs.add_evolution(h, t)
+print (qs)
+qpp.compile(qs)
+qpp.run()
+qpp.results()
+qpp.print_sites()
+
+iqp.compile(qs)
+iqp.run(on_simulator = True)
+iqp.results()
+iqp.print_sites()

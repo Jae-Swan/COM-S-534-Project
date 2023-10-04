@@ -3,6 +3,12 @@ __author__ = "Jae Swanepoel"
 from simuq.environment import Fermion
 from simuq.qsystem import QSystem
 import numpy as np
+from simuq.qutip import QuTiPProvider
+from simuq.ionq import IonQProvider
+iqp = IonQProvider("VEgePYu3LJtjGQBI4MFQrxmyfeGLRVBZ")
+
+qpp = QuTiPProvider()
+
 
 # Pauli operators
 # Not sure if these operators are defined elsewhere
@@ -35,3 +41,13 @@ for i in range(L - 1):
 
 h = ht + hJ
 qs.add_evolution(h, t)
+print (qs)
+qpp.compile(qs)
+qpp.run()
+qpp.results()
+qpp.print_sites()
+
+iqp.compile(qs)
+iqp.run(on_simulator = True)
+iqp.results()
+iqp.print_sites()
