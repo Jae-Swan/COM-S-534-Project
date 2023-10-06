@@ -19,14 +19,12 @@ for i in range(L):
 t = 0.1  # hopping amplitude
 U = 0.3  # strength of on-site interaction
 J = (t * t) / U  # exchange interaction
-ht = 0  # t term
-hJ = 0  # J term
+h = 0 # Hamiltonian
 
 for i in range(L - 1):
     iu, id, ju, jd = fermions[2 * i], fermions[2 * i + 1], fermions[2 * (i + 1)], fermions[2 * (i + 1) + 1]
-    ht += (-1 * t) * (iu.c * ju.a + id.c * jd.a + ju.c * iu.a + jd.c * id.a)  # t term
+    h += (-1 * t) * (iu.c * ju.a + id.c * jd.a + ju.c * iu.a + jd.c * id.a)  # t term
     Si, Sj = sops[i], sops[i + 1]
-    hJ += (Si[0] * Sj[0]) + (Si[1] * Sj[1]) + (Si[2] * Sj[2])  # J term = Si.Sj
+    h += (Si[0] * Sj[0]) + (Si[1] * Sj[1]) + (Si[2] * Sj[2])  # J term = Si.Sj
 
-h = ht + hJ
 qs.add_evolution(h, t)
