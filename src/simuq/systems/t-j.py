@@ -19,7 +19,7 @@ for i in range(L):
 t = 0.1  # hopping amplitude
 U = 0.3  # strength of on-site interaction
 J = (t * t) / U  # exchange interaction
-h = 0 # Hamiltonian
+h = 0  # Hamiltonian
 
 for i in range(L - 1):
     iu, id, ju, jd = fermions[2 * i], fermions[2 * i + 1], fermions[2 * (i + 1)], fermions[2 * (i + 1) + 1]
