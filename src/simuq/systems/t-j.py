@@ -2,6 +2,9 @@ __author__ = "Jae Swanepoel"
 
 from simuq.environment import Fermion
 from simuq.qsystem import QSystem
+from simuq.qutip import QuTiPProvider
+
+qtpp = QuTiPProvider()
 
 L = 5  # number of lattice sites
 N = 2 * L  # number of fermionic systems
@@ -32,3 +35,8 @@ for i in range(L - 1):
     h += J * ((Si[0] * Sj[0]) + (Si[1] * Sj[1]) + (Si[2] * Sj[2]) - (0.25 * particle_numbers[i] * particle_numbers[i + 1]))  # J term = Si.Sj
 
 qs.add_evolution(h, t)
+
+qtpp.compile(qs)
+qtpp.run()
+res_cycle_gt = qtpp.results()
+print(res_cycle_gt["0000000000"])

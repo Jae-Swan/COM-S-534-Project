@@ -1,7 +1,7 @@
 from simuq.environment import Fermion
 from simuq.qsystem import QSystem
 from simuq.qutip import QuTiPProvider
-qpp = QuTiPProvider()
+qtpp = QuTiPProvider()
 
 from simuq.ionq import IonQProvider
 iqp = IonQProvider("VEgePYu3LJtjGQBI4MFQrxmyfeGLRVBZ")
@@ -37,14 +37,8 @@ for i in range(L):
 h = hh + ho
 t = 0.1
 qs.add_evolution(h, t)
-qs.add_evolution(h, t)
-print (qs)
-qpp.compile(qs)
-qpp.run()
-qpp.results()
-qpp.print_sites()
 
-iqp.compile(qs)
-iqp.run(on_simulator = True)
-iqp.results()
-iqp.print_sites()
+qtpp.compile(qs)
+qtpp.run()
+res_cycle_gt = qtpp.results()
+print(res_cycle_gt["0000000000"])
