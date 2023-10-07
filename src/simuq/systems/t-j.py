@@ -23,7 +23,7 @@ h = 0 # Hamiltonian
 
 for i in range(L - 1):
     iu, id, ju, jd = fermions[2 * i], fermions[2 * i + 1], fermions[2 * (i + 1)], fermions[2 * (i + 1) + 1]
-    h += (-1 * t) * (iu.c * ju.a + id.c * jd.a + ju.c * iu.a + jd.c * id.a)  # t term
+    h += (-1 * t) * ((iu.c * ju.a) + (id.c * jd.a) + (ju.c * iu.a) + (jd.c * id.a))  # t term
     Si, Sj = sops[i], sops[i + 1]
     h += (Si[0] * Sj[0]) + (Si[1] * Sj[1]) + (Si[2] * Sj[2])  # J term = Si.Sj
 
