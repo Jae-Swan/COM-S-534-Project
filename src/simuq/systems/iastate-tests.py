@@ -100,20 +100,21 @@ def test_jw_transform():
     qtpp.run()
     result = qtpp.results()
     print("\nSite Frequencies: ")
-    for j in range(2**4):
+    for j in range(2 ** 4):
         print(format(j, f'0{4}b'), " : ", result[format(j, f'0{4}b')])
 
 
-print("t-J System:")
-test_jw_transform()
-print("\nIsing System:")
-print("Qubit Hamiltonian")
-ising_system = ising.GenQS(4, 0.1, 0.1, 0.1)
-for i in range(len(ising_system.evos[0][0].ham)):
-    print(ising_system.evos[0][0].ham[i])
-qtpp.compile(ising_system)
-qtpp.run()
-results = qtpp.results()
-print("\nSite Frequencies: ")
-for i in range(2**4):
-    print(format(i, f'0{4}b'), " : ", results[format(i, f'0{4}b')])
+def test_compare_tJ_ising():
+    print("t-J System:")
+    test_jw_transform()
+    print("\nIsing System:")
+    print("Qubit Hamiltonian")
+    ising_system = ising.GenQS(4, 0.1, 0.1, 0.1)
+    for i in range(len(ising_system.evos[0][0].ham)):
+        print(ising_system.evos[0][0].ham[i])
+    qtpp.compile(ising_system)
+    qtpp.run()
+    results = qtpp.results()
+    print("\nSite Frequencies: ")
+    for i in range(2 ** 4):
+        print(format(i, f'0{4}b'), " : ", results[format(i, f'0{4}b')])
