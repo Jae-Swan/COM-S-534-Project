@@ -29,4 +29,13 @@ def ising_model(H0, H1, Tau, T):
     return f
 
 
-qs.add_time_dependent_evolution(ising_model(H0, H1, lambda t: 1 - t**2, T), np.linspace(0, T, m))
+qs.add_time_dependent_evolution(ising_model(H0, H1, lambda t: 1 - t ** 2, T), np.linspace(0, T, m))
+
+from simuq.qutip import QuTiPProvider
+
+qtpp = QuTiPProvider()
+qtpp.compile(qs)
+qtpp.run()
+results = qtpp.results()
+for i in range(2 ** 3):
+    print(format(i, f'03b'), results[format(i, f'03b')])

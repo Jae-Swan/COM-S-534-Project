@@ -1,3 +1,4 @@
+from simuq import jw_transform
 from simuq.environment import Fermion
 from simuq.qsystem import QSystem
 
@@ -31,3 +32,21 @@ for i in range(L):
 h = hh + ho
 t = 0.1
 qs.add_evolution(h, t)
+
+from simuq.qutip import QuTiPProvider
+
+qtpp = QuTiPProvider()
+qtpp.compile(qs)
+qtpp.run()
+results = qtpp.results()
+print("Fermion Results:")
+for i in range(2**10):
+    print(format(i, f'010b'), results[format(i, f'010b')])
+
+new_qs, new_sites = jw_transform(qs)
+qtpp.compile(new_qs)
+qtpp.run()
+results = qtpp.results()
+print("\nQubit Results:")
+for i in range(2**10):
+    print(format(i, f'010b'), results[format(i, f'010b')])
